@@ -1,0 +1,35 @@
+from random import randrange as rr
+
+
+
+hand = tuple(rr(2, 15) for _ in range(5))
+
+unique = set(hand)
+unique_len = len(unique)
+
+result = 'старшая карта'
+
+if unique_len == 5:
+    lowest = min(hand)
+    if sorted(hand) == list(range(lowest, lowest+5)):
+        result = 'стрит'
+
+if unique_len == 4:
+    result = 'пара'
+
+repeats = max(hand.count(card) for card in unique)
+
+if unique_len == 3:
+    if repeats == 3:
+        result = 'сет'
+    elif repeats == 2:
+        result == 'две пары'
+
+if unique_len == 2:
+    if repeats == 4:
+        result = 'каре'
+    elif repeats == 3:
+        result == 'фулл-хаус'
+
+print(hand)
+print(result)
