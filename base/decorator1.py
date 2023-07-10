@@ -1,6 +1,10 @@
+from functools import wraps
+
+
 def decorator(function):
     print('\tначало выполнения функции-декоратора')
     
+    @wraps(function)
     def wrapper(*args, **kwargs):
         print('\t\tначало выполнения функции-обёртки')
         result = function(*args, **kwargs)
