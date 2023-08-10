@@ -1,8 +1,9 @@
-from random import choice
+from random import choice, randrange as rr
 
 
 class Cat:
     names = ('Белка', 'Черныш', 'Рыжик', 'Мурзя', 'Черепаха')
+    colors = ('чёрный', 'белый', 'рыжий', 'серый', 'пятнистый', 'черепаховый')
     hunter = 81
     
     # special, dunder, специальные, встроенные, "магические"
@@ -10,12 +11,20 @@ class Cat:
         if name is None:
             name = choice(self.names)
         self.name = name
+        self.color = choice(self.colors)
     
     def __repr__(self):
-        return f'<{self.__class__.__name__}: {self.name}>'
+        return f'<{self.__class__.__name__}: {self.name}, окрас: {self.color}>'
     
     def __str__(self):
         return f'{self.name}'
+    
+    @staticmethod
+    def meow() -> str:
+        return 'мяу'
+    
+    def hungry(self) -> str:
+        return '-'.join(self.meow() for _ in range(rr(2, 5)))
     
     def hunt(self) -> bool:
         """"""
@@ -35,9 +44,28 @@ yara = Cat('Яра')
 # вызов метода yara.hunt() подменяется вызовом функции Cat.hunt(yara)
 yara.hunt()
 
+# для всех связанных методов:
 # self.method(*args, **kwargs)
 #     |
 #     V
 # self.__class__.function(self, *args, **kwargs)
+
+
+
+# >>> Cat.meow
+# <function Cat.meow at 0x000001B08C4D5620>
+
+# >>> yara.meow
+# <function Cat.meow at 0x000001B08C4D5620>
+
+# при вызове статического метода подмена не осуществляется, вызывается объект функции
+yara.meow()
+
+# для всех статических методов:
+# self.static_method(*args, **kwargs)
+#     |
+#     V
+# self.__class__.static_method(*args, **kwargs)
+
 
 
