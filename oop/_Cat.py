@@ -1,4 +1,5 @@
 from random import choice, randrange as rr
+from typing import Self
 
 
 class Cat:
@@ -31,6 +32,10 @@ class Cat:
         res = choice([True]*self.hunter + [False]*(100-self.hunter))
         print('охота удалась' if res else 'неудача')
         return res
+    
+    @classmethod
+    def reproduce(cls) -> list[Self]:
+        return [cls() for _ in range(rr(2, 6))]
 
 
 yara = Cat('Яра')
@@ -67,5 +72,30 @@ yara.meow()
 #     V
 # self.__class__.static_method(*args, **kwargs)
 
+
+
+# >>> Cat.reproduce
+# <bound method Cat.reproduce of <class '__main__.Cat'>>
+
+# >>> yara.reproduce
+# <bound method Cat.reproduce of <class '__main__.Cat'>>
+
+# вызов классового метода yara.reproduce() подменяется вызовом reproduce(Cat)
+yara.reproduce()
+
+# для всех классовых методов:
+# self.class_method(*args, **kwargs)
+#     |
+#     V
+# class_method(self.__class__, *args, **kwargs)
+
+# вызов классового метода Cat.reproduce() подменяется вызовом reproduce(Cat)
+Cat.reproduce()
+
+# для всех классовых методов:
+# cls.class_method(*args, **kwargs)
+#     |
+#     V
+# class_method(cls, *args, **kwargs)
 
 
