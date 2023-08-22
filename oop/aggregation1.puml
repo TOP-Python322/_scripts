@@ -1,0 +1,21 @@
+@startuml
+
+class Product {
+    +name: <i>str</i>
+    +produced: <i>date</i> = None
+    +expired: <i>date</i>
+    __init__()
+    __repr__()
+}
+
+class Fridge {
+    -cold: <i>list</i>[Product]
+    #freezer: <i>list</i>[Product]
+    __init__()
+    __repr__()
+    +add_product()
+}
+
+Fridge o-left- Product
+
+@enduml
