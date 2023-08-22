@@ -1,5 +1,7 @@
 @startuml
 
+!theme monokai from ..\.styles
+
 class Product {
     +name: <i>str</i>
     +produced: <i>date</i> = None
