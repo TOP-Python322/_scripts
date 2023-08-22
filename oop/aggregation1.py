@@ -20,6 +20,9 @@ class Fridge:
         self._cold: list[Product] = []
         self.__freezer: list[Product] = []
     
+    def __repr__(self):
+        return '\n'.join(repr(pr) for pr in chain(self._cold, self.__freezer))
+    
     def add_product(self, *products: Product, box: Literal['c', 'f'] = 'c') -> None:
         if box == 'c':
             box = self._cold
@@ -28,14 +31,20 @@ class Fridge:
         else:
             raise ValueError
         box.extend(products)
-    
-    def __repr__(self):
-        return '\n'.join(repr(pr) for pr in chain(self._cold, self.__freezer))
+
+    def clear_expired(self) -> None:
+        today = date.today()
+        for product in self._cold:
+            if not product.produced <= today <= product.expired:
+                self._cold.remove(product)
+        for product in self.__freezer:
+            if not product.produced <= today <= product.expired:
+                self.__freezer.remove(product)
 
 
 fr1 = Fridge()
 fr1.add_product(
-    Product('молоко', td(days=7)),
+    Product('молоко', td(days=7), date(2023, 8, 14)),
     Product('сметана', td(days=14)),
     Product('сливки', produced=date(2023, 8, 15), long=td(days=30)),
     box='c'
