@@ -1,0 +1,20 @@
+@startuml
+
+!theme monokai from ..\.styles
+
+class Person {
+    +name: <i>str</i>
+    +sex: Sex
+    __init__()
+    __repr__()
+}
+
+class Sex {
+    +value: <i>str</i>
+    __init__()
+    __repr__()
+}
+
+Person *-right- Sex
+
+@enduml
