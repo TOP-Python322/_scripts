@@ -1,0 +1,68 @@
+@startuml
+
+!theme monokai from ..\.styles
+
+left to right direction
+
+class Character {
+    +name: <i>str</i>
+    +health: <i>int</i>
+    +stamina: <i>int</i>
+    -strength: <i>int</i>
+    -dexterity: <i>int</i>
+    -resilience: <i>int</i>
+    -intellect: <i>int</i>
+    #main_attrs: <i>dict</i>[<i>str</i>, <i>int</i>]
+    #secondary_attrs: <i>dict</i>[<i>str</i>, <i>int</i>]
+   +perks
+   __init__()
+}
+
+class Hero {
+    +level: <i>int</i>
+    __init__()
+    +level_up()
+}
+
+class Fighter {
+    +fury: <i>int</i>
+    __init__()
+}
+class Cleric {
+    +holy: <i>int</i>
+    __init__()
+}
+class Thief {
+    +quiet: <i>int</i>
+    __init__()
+}
+class Wizard {
+    +energy: <i>int</i>
+    __init__()
+}
+
+class NPC {
+    __init__()
+}
+
+class Mob {
+    __init__()
+    -scale()
+}
+
+class Aggressive
+class NonAggressive
+
+Character <|-- Hero
+Character <|-- NPC
+Character <|-- Mob
+
+Hero <|-- Fighter
+Hero <|-- Cleric
+Hero <|-- Thief
+Hero <|-- Wizard
+
+Mob <|-- Aggressive
+Mob <|-- NonAggressive
+
+@enduml
